@@ -15,3 +15,4 @@ var textToCopy = `https://www.bing.com/search%2f..%2fvideos/search?q=google.com&
 setClipboard(textToCopy);
 }
 </script>
+//test
