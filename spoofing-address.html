@@ -1,0 +1,30 @@
+
+<html data-lt-installed="true" class=" hwyahtbqp idc0_350"><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"></head><body>
+
+
+<a onClick="myFunction();" href="google.com:">Open Google Login</a></body></html>
+<div id="place"></div>
+<input type="button" id="btn1" value="Login"  onclick="javascript:validate()" />
+<script>
+        document.getElementById('btn1').style.display="none";  // for hide button
+
+function myFunction() {
+    document.getElementById("place").innerHTML="<form> <h1> Google asking you Password : </h1><input style='font-size:18pt;height:20px;width:150px;' type='password' id='text1' type='text' value=''></form>"
+  document.getElementById("text1").focus();
+        document.getElementById('btn1').style.display="";  // for hide button
+
+}
+function validate()
+{
+    if(   document.getElementById("text1").value == "Password" )
+    {
+        location.href="https://google.com";
+    }
+    else
+    {
+        location.href="google.com";
+    }
+}
+
+</script>
