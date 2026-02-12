@@ -3,6 +3,7 @@
 <script> function go(){
  var x=window.open('https://www.google.com/csi');
  setTimeout(function(){
-    x.alert("Google cannot be opened. Please go to https://evil.com")
+    x.alert("Google cannot be opened. Please go to https://evil.com");
+  x.prompt("Hello", "Yes")
 }
 </script>
