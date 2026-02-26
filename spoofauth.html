@@ -1,0 +1,16 @@
+<html>
+  <head>
+  <script>
+    function spoof() {
+      setTimeout(showAuthentication, 0);
+      window.open('https://google.com/csi', 'google');
+     }
+     function showAuthentication() {
+       document.location = "http://www.httpwatch.com/httpgallery/authentication/authenticatedimage/default.aspx";
+     }
+   </script>
+  </head>
+  <body>
+    <a href="#" onclick="spoof()">Tap me!</a>
+  </body>
+</html>
