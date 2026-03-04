@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Test</title>
+  </head>
+  <body>
+    <h1>Spoofing</h1>
+<script>
+    function spoof() {
+        setTimeout(() => {
+            window.stop();
+            let randomPort;
+            do {
+                randomPort = Math.floor(Math.random() * 1000);
+            } while (randomPort === 0 || randomPort === 443);
+            document.location = "https://www.flow.com:" + randomPort + "/";
+        }, 300);
+    }
+    spoof();
+</script>
+</body>
+</html>
