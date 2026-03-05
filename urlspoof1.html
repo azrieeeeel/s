@@ -1,0 +1,18 @@
+<button onclick="test()">clickme</button>
+<script>
+function test()
+{
+  w = open('https://www.amazon.cn/')
+}
+function runner()
+{
+  try{
+    if (!w.document) {
+      w.location = 'view-source:http://localhost:8000/'
+      setTimeout(function(){w.location = 'http://wwww.google.cn'}, 1000)
+      clearInterval(t);
+    }
+  }catch(e){}
+}
+t = setInterval(runner, 1000)
+</script>
